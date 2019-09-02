@@ -8,9 +8,7 @@ $arrayJSON = json_decode($strJsonFileContents, true);
 function generateVersionHistory($arrayJSON) {
     $releaseHistoryId = "5c8aded82d38c74039cf8009"; // the id of Version History on Trello
     $searchResult = "";
-    // $x = $arrayJSON["actions"].count(); // total number of actions to iterate through in the file
     $allEntries = "";
-
     echo ""; // clear the contents each time the function is called
 
     $elem = 0;
@@ -22,7 +20,7 @@ function generateVersionHistory($arrayJSON) {
                 // $entryDate = DateTime::createFromFormat('Y-m-dTH:i:s.u', str_replace("Z", "", $i["date"]))->format('Y-m-d');
                 // var_dump($entryDate);
                 
-                $entryDate = $i["date"];
+                $entryDate = substr($i["date"], 0, 10);
                 if(array_key_exists("card", $i["data"])) {
                     if(array_key_exists("desc", $i["data"]["card"])) {
                         $entryLog = str_replace("\n", "<br>", $i["data"]["card"]["desc"]);
@@ -35,24 +33,23 @@ function generateVersionHistory($arrayJSON) {
 
                 $entry = [
                     "<div>",
-                        "<div class='entryNo'>" . $elem . "</div>",
+                        "<div style='border-bottom:1px solid lightgray;'></div>",
+                        //"<div class='entryNo'>" . $elem . "</div>",
                         "<div class='date'>" . $entryDate . "</div>",
                         "<p><strong>" . $entryProgram . "</strong></p>",
                         "<p class='changelog'>" . $entryLog . "</div>",
-                    "</div>",
-                    "<div style='border-bottom:1px solid lightgray;'></div>"
+                    "</div>"
                 ];
                 $entry = implode("\n", $entry);
             
                 $allEntries .= $entry;
-                
             }
         }
         $elem++;
     }
 
     /* ------------------------------------------------------------------------------------ */
-    // Appends all generated thumbnails to the #generate div (views them)
+    // View all read entries in the #generate div
     /* ------------------------------------------------------------------------------------ */
 
     function viewAllEntries($allEntries) {
