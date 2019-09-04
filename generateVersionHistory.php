@@ -7,8 +7,7 @@ $arrayJSON = json_decode($strJsonFileContents, true);
 
 function generateVersionHistory($arrayJSON) {
     $releaseHistoryId = "5c8aded82d38c74039cf8009"; // the id of Version History on Trello
-    $searchResult = "";
-    $allEntries = "";
+    $searchResult = ""; $allEntries = "";
     echo ""; // clear the contents each time the function is called
 
     $elem = 0;
@@ -19,15 +18,15 @@ function generateVersionHistory($arrayJSON) {
             if($searchResult == $releaseHistoryId) {
                 // $entryDate = DateTime::createFromFormat('Y-m-dTH:i:s.u', str_replace("Z", "", $i["date"]))->format('Y-m-d');
                 // var_dump($entryDate);
-                
-                $entryDate = substr($i["date"], 0, 10);
+                "2019-08-28T17:56:51.603Z";
+                $entryDate = substr($i["date"], 0, 10) . " — " . substr($i["date"], 11, 8);
                 if(array_key_exists("card", $i["data"])) {
                     if(array_key_exists("desc", $i["data"]["card"])) {
-                        $entryLog = str_replace("\n", "<br>", $i["data"]["card"]["desc"]);
                         $entryProgram = $i["data"]["card"]["name"];
+                        $entryLog = str_replace("\n", "<br>", $i["data"]["card"]["desc"]);
                     } else {
-                        $elem++;
-                        continue;
+                        $entryProgram = $i["data"]["card"]["name"];
+                        $entryLog = "(No Patch Release description was given for this entry)";
                     }
                 }
 
