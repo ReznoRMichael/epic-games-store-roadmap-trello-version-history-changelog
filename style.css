@@ -2,6 +2,9 @@ body {
     font-family: Consolas, monotype;
     font-size: 15px;
 }
+.smalltext {
+    font-size: 0.75em;
+}
 a,
 a:active,
 a:visited {

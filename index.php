@@ -9,9 +9,10 @@
 </head>
 <body>
     <h1>Epic Games Store Roadmap — Version History / Changelog</h1>
-    <p>Trello .json file parser written by ReznoR for fun and practice ( <a href="https://github.com/ReznoRMichael" target="_blank">github.com/ReznoRMichael</a> )<br>
+    <p class="smalltext">Trello .json file parser written by ReznoR for fun and practice ( <a href="https://github.com/ReznoRMichael" target="_blank">github.com/ReznoRMichael</a> )<br>
     The dates are just last recorded card activity on Trello and can be misleading.<br>
     Program versions (in <b>bold</b>) are direct links to the appropriate card on Trello (opens in a separate tab) — check there for more details.</p>
+    <div style="margin-bottom: 20px;"></div>
     <div id="generate">
         <?php require_once("generateVersionHistory.php") ?>
     </div>
