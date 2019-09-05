@@ -71,7 +71,7 @@ function generateCardVersionHistory($arrayJSON)
                     "<div>",
                     "<div class='horizontal-line'></div>",
                     // "<div class='entryNo'>" . $elem . "</div>",
-                    "<p><a href='" . $entryURL . "' target='_blank' title='Click to open the link to the Trello card in a separate window'>"
+                    "<p><a href='" . $entryURL . "' target='_blank' rel='noreferrer' title='Click to open the link to the Trello card in a separate window'>"
                         . $entryProgram . "</a><span class='date' title='"
                         . $entryDateLong . " UTC±00:00 (creation of the Trello card)'> ( " . $entryDateShort . " )</span></p>",
                     "<p class='changelog'>" . $entryLog . "</div>",
