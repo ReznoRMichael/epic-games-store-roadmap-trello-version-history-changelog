@@ -16,7 +16,7 @@ function generateCardVersionHistory($arrayJSON) {
             $searchResult = $i["idList"];
 
             if($searchResult == $releaseHistoryId) {
-                $entryDate = substr($i["dateLastActivity"], 0, 10) . " — " . substr($i["dateLastActivity"], 11, 8); // "2019-08-28T17:56:51.603Z";
+                $entryDate = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $i["dateLastActivity"])->format('Y-m-d');
                 $entryURL = $i["url"];
 
                 if(array_key_exists("desc", $i)) {
