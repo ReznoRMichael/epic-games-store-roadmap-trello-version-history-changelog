@@ -41,7 +41,9 @@ function generateCardVersionHistory($arrayJSON) {
             if($searchResult == $releaseHistoryId) {
                 $entryURL = $i["url"]; // URL for each card's link
                 $cardID = $i["id"]; // save card's ID for getCreateCardDate()
-                $entryDate = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', getCreateCardDate($cardID, $arrayJSON))->format('Y-m-d');
+                $entryDate = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', getCreateCardDate($cardID, $arrayJSON));
+                $entryDateShort = $entryDate->format('Y-m-d');
+                $entryDateLong = $entryDate->format('Y-m-d H:i:s');
 
                 if(array_key_exists("desc", $i)) {
                     $entryProgram = $i["name"];
@@ -65,7 +67,8 @@ function generateCardVersionHistory($arrayJSON) {
                         "<div class='horizontal-line'></div>",
                         // "<div class='entryNo'>" . $elem . "</div>",
                         "<p><a href='" . $entryURL . "' target='_blank' title='Click to open the link to the Trello card in a separate window'>"
-                         . $entryProgram . "</a><span class='date'> ( " . $entryDate . " )</span></p>",
+                        . $entryProgram . "</a><span class='date' title='"
+                        . $entryDateLong . " UTC±00:00 (creation of the Trello card)'> ( " . $entryDateShort . " )</span></p>",
                         "<p class='changelog'>" . $entryLog . "</div>",
                     "</div>"
                 ];
