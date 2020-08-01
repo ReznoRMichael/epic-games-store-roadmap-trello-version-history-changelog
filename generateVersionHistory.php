@@ -1,6 +1,6 @@
 <?php
 // $execution_time = microtime(true); // Start counting
-$publicKey = ""; // your Trello Public API key
+$publicKey = require_once("trelloPublicKey.php"); // put your Trello Public API key here
 $trelloBoardId = "5c8aab433718ca7a53ceb3b8"; // the id of the trello board for the API call
 $releaseHistoryId = "5c8aded82d38c74039cf8009"; // the id of the list "Releases / Patch Notes" on Epic's Trello Roadmap
 $URIparameters = "&cards=all&lists=all&actions=all"; // parameters for the REST API call
