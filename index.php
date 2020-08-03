@@ -39,7 +39,7 @@
     <p class="smalltext">Changelog for the Epic Games Store Web & Client (Launcher) collected on a Single Page. Updates automatically.<br>
     Source: official <a href="https://trello.com/b/GXLc34hk/epic-games-store-roadmap" target="_blank" rel="noreferrer">Epic Games Trello Roadmap</a>.</p>
 
-    <p class="smalltext">Trello REST API .json file parser written by ReznoR for fun and learning ( <a href="https://github.com/ReznoRMichael" target="_blank" rel="noreferrer">github.com/ReznoRMichael</a> )<br>
+    <p class="smalltext">Trello REST API .json file parser written by ReznoR for fun and learning ( <a href="https://github.com/ReznoRMichael/epic-games-store-roadmap-trello-version-history-changelog" target="_blank" rel="noreferrer">GitHub</a> )<br>
     You can support me directly through <a href="https://www.paypal.me/ReznoRMichael" target="_blank" rel="noreferrer">PayPal</a> if you think it's worth it.</p>
 
     <div style="margin-bottom: 20px;"></div>

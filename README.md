@@ -1,10 +1,10 @@
 # Epic Games Store Roadmap — Version History / Changelog Parser
 
-> Presents a collected Epic Games Store Version History on a single page
+> Presents a collected Epic Games Store Changelog on a single page in a simple text form
 
 ## General info
 
-Written for practice. A simple Trello JSON file parser in PHP for showing the Epic Games Store Release Notes / Changelog on a single page. Uses Trello REST API and updates automatically.
+Written for practice. A simple Trello JSON file parser in PHP for showing the Epic Games Store Release Notes / Changelog on a single page. Uses Trello REST API so it updates automatically.
 
 ## Version History
 
