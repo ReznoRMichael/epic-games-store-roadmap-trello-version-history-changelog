@@ -1,9 +1,10 @@
 <?php
 // $execution_time = microtime(true); // Start counting
+
 $publicKey = require_once("trelloPublicKey.php"); // put your Trello Public API key here
 $trelloBoardId = "5c8aab433718ca7a53ceb3b8"; // the id of the trello board for the API call
 $releaseHistoryId = "5c8aded82d38c74039cf8009"; // the id of the list "Releases / Patch Notes" on Epic's Trello Roadmap
-$URIparameters = "&cards=all&lists=all&actions=all"; // parameters for the REST API call
+$URIparameters = "&cards=all&actions=all"; // parameters for the REST API call
 $curl = "https://api.trello.com/1/boards/" . $trelloBoardId . "/?key=" . $publicKey . $URIparameters; // REST API call to Trello servers
 //$curl = "GXLc34hk.json"; // can be also a local downloaded .json file directly from Trello instead
 // Put the contents of the JSON API response in a string
@@ -40,12 +41,7 @@ function getCreateCardDate($cardID, $arrayJSON)
     foreach ($arrayJSON["actions"] as $i) {
         if (array_key_exists("card", $i["data"])) {
             if ($i["data"]["card"]["id"] === $cardID) {
-                /* if ($i["type"] === "createCard") {
-                    return $i["date"];
-                } else if ($i["type"] === "updateCard") {
-                    return $i["date"];
-                } */
-                return $i["date"];
+                if (array_key_exists("date", $i)) return $i["date"];
             }
         }
     }
@@ -65,11 +61,17 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId)
     $entryURL = "";
     $cardID = "";
     $elem = 0; // just for counting the element's number in the JSON file for easier debugging
+
+    // Beautify Epic's Patch Notes
+    $searchFor = array("**Patch Notes:**", "**Patch Notes**", "Patch Notes:", "Patch Notes");
+    $replaceWith = array("", "", "", "");
+    
     foreach ($arrayJSON["cards"] as $i) {
         if (array_key_exists("idList", $i)) {
             $searchResult = $i["idList"];
 
             if ($searchResult == $releaseHistoryId) {
+                $entryProgram = $i["name"]; // Epic Web or Client, plus version
                 $entryURL = $i["url"]; // URL for each card's link
                 $cardID = $i["id"]; // save card's ID for getCreateCardDate()
                 $cardDate = getCreateCardDate($cardID, $arrayJSON);
@@ -81,20 +83,14 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId)
                 $entryDateShort = $entryDate->format('Y-m-d');
                 $entryDateLong = $entryDate->format('Y-m-d H:i:s');
 
-                if (array_key_exists("desc", $i)) {
-                    $entryProgram = $i["name"];
-                    if (ctype_space($i["desc"]) || strlen($i["desc"]) < 1) {
-                        $entryLog = "(No Patch Release description was given for this entry)";
-                    } else {
-                        $searchFor = array("**Patch Notes:**", "**Patch Notes**", "Patch Notes:", "Patch Notes");
-                        $replaceWith = array("", "", "", "");
-                        $entryLog = str_replace($searchFor, $replaceWith, $i["desc"]); // delete the "Patch Notes" texts
-                        $entryLog = trim($entryLog); // delete all whitespace from beginning and ending
-                        $entryLog = str_replace("\n", "<br>", $entryLog); // replace all newline characters with html <br>
-                    }
-                } else {
-                    $entryProgram = $i["name"];
-                    $entryLog = "(No Patch Release description was given for this entry)";
+                // default text if Patch Notes are empty 
+                $entryLog = "(No Patch Release description was given for this entry)";
+
+                if ( array_key_exists("desc", $i) && ((ctype_space($i["desc"]) || strlen($i["desc"]) > 1)) ) {
+                    // Beautify Epic's Patch Notes
+                    $entryLog = str_replace($searchFor, $replaceWith, $i["desc"]); // assign description and delete the "Patch Notes" texts
+                    $entryLog = trim($entryLog); // delete all whitespace from beginning and ending
+                    $entryLog = str_replace("\n", "<br>", $entryLog); // replace all newline characters with html <br>
                 }
 
                 // single entry in the html
