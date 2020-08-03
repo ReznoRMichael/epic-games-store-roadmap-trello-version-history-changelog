@@ -19,17 +19,34 @@
 
 	<meta name="author" content="ReznoR Michael">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<link rel="icon" href="../favicon.png">
+    <link rel="icon" href="../favicon.png">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-136831794-2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-136831794-2');
+    </script>
+    
 </head>
 <body>
+    
     <h1>Epic Games Store — Version History</h1>
+
     <p class="smalltext">Changelog for the Epic Games Store Web & Client (Launcher) collected on a Single Page. Updates automatically.<br>
     Source: official <a href="https://trello.com/b/GXLc34hk/epic-games-store-roadmap" target="_blank" rel="noreferrer">Epic Games Trello Roadmap</a>.</p>
+
     <p class="smalltext">Trello REST API .json file parser written by ReznoR for fun and learning ( <a href="https://github.com/ReznoRMichael" target="_blank" rel="noreferrer">github.com/ReznoRMichael</a> )<br>
     You can support me directly through <a href="https://www.paypal.me/ReznoRMichael" target="_blank" rel="noreferrer">PayPal</a> if you think it's worth it.</p>
+
     <div style="margin-bottom: 20px;"></div>
+
     <div id="generate">
         <?php require_once("generateVersionHistory.php") ?>
     </div>
+
 </body>
 </html>
