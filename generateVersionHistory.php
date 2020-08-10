@@ -1,18 +1,44 @@
 <?php
 // $execution_time = microtime(true); // Start counting
 
-$publicKey = require_once("trelloPublicKey.php"); // put your Trello Public API key here
-$trelloBoardId = "5c8aab433718ca7a53ceb3b8"; // the id of the trello board for the API call
+$publicKey = require_once "trelloPublicKey.php"; // put your Trello Public API key inside this file
+$trelloBoardId = "5c8aab433718ca7a53ceb3b8"; // the id of the trello board that you want
 $releaseHistoryId = "5c8aded82d38c74039cf8009"; // the id of the list "Releases / Patch Notes" on Epic's Trello Roadmap
 $URIparameters = "&cards=all&actions=all"; // parameters for the REST API call
+$strJsonFileContents = ""; // initially empty
+$checkURL = "Trello API"; // which method is currently displayed on screen (API or local file)
 $curl = "https://api.trello.com/1/boards/" . $trelloBoardId . "/?key=" . $publicKey . $URIparameters; // REST API call to Trello servers
-//$curl = "GXLc34hk.json"; // can be also a local downloaded .json file directly from Trello instead
-// Put the contents of the JSON API response in a string
-$strJsonFileContents = file_get_contents($curl);
+
+try {
+    $ctx = stream_context_create( array(
+        'http' => array(
+            'timeout' => 1
+            )
+        )
+    );
+
+    $checkAPICall = file_get_contents( $curl, 0, $ctx );
+
+    // $checkAPICall = false; // debugging
+
+    if( $checkAPICall === false ) {
+        // if the API call will fail pull data from a local file instead
+        $strJsonFileContents = file_get_contents( "GXLc34hk.json" );
+        $checkURL = "Local JSON";
+    } else {
+        // Put the contents of the JSON API response in a string
+        $strJsonFileContents = $checkAPICall;
+    }
+} catch ( Exception $e ) {
+    echo $e;
+}
+
 // Convert the string to associative array for use with PHP
-$arrayJSON = json_decode($strJsonFileContents, true);
-//var_dump($arrayJSON); // view array in console
-// console_log($arrayJSON); // view array in console
+$arrayJSON = json_decode( $strJsonFileContents, true );
+// var_dump($arrayJSON); // view array in console
+// console_log( $strJsonFileContents );
+// console_log( $arrayJSON ); // view array in console
+// console_log( json_last_error_msg() );
 
 echo ""; // clear the contents each time
 
@@ -29,6 +55,9 @@ function console_log($output, $withScriptTags = true) {
     }
     echo $jsCode;
 }
+
+// console_log($arrayJSON);
+console_log( $checkURL );
 
 /**
  * Gets the "createCard" date from the Trello JSON file
@@ -54,7 +83,7 @@ function getCreateCardDate($cardID, $arrayJSON)
  * @param string $releaseHistoryId
  * @return void
  */
-function generateCardVersionHistory($arrayJSON, $releaseHistoryId)
+function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
 {
     $searchResult = "";
     $allEntries = "";
@@ -112,11 +141,19 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId)
         }
         $elem++;
     }
+
+    $entry = [
+        "<div>",
+        "<p class='smalltext'>Data source: " . $checkURL . "</p>",
+        "</div>"
+    ];
+    $entry = implode("\n", $entry);
+
     // view final result
-    echo $allEntries;
+    return $entry .= $allEntries;
 }
 
-generateCardVersionHistory($arrayJSON, $releaseHistoryId);
+echo generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL);
 
 // $execution_time = microtime(true) - $execution_time;
 // printf('It took %.5f sec', $execution_time);

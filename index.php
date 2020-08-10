@@ -36,7 +36,7 @@
     
     <h1>Epic Games Store — Version History</h1>
 
-    <p class="smalltext">Changelog for the Epic Games Store Web & Client (Launcher) collected on a Single Page. Updates automatically.<br>
+    <p class="smalltext">Changelog for the Epic Games Store Web & Client (Launcher) collected on a Single Page. Updates automatically. If the update will fail, local file will be used instead.<br>
     Source: official <a href="https://trello.com/b/GXLc34hk/epic-games-store-roadmap" target="_blank" rel="noreferrer">Epic Games Trello Roadmap</a>.</p>
 
     <p class="smalltext">Trello REST API .json file parser written by ReznoR for fun and learning ( <a href="https://github.com/ReznoRMichael/epic-games-store-roadmap-trello-version-history-changelog" target="_blank" rel="noreferrer">GitHub</a> )<br>
@@ -45,7 +45,7 @@
     <div style="margin-bottom: 20px;"></div>
 
     <div id="generate">
-        <?php require_once("generateVersionHistory.php") ?>
+        <?php require_once "generateVersionHistory.php"; ?>
     </div>
 
 </body>
