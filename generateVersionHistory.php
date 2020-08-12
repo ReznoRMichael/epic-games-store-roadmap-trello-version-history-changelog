@@ -30,7 +30,7 @@ try {
         $strJsonFileContents = $checkAPICall;
     }
 } catch ( Exception $e ) {
-    echo $e;
+    console_log( "You have broken internet" );
 }
 
 // Convert the string to associative array for use with PHP
@@ -39,6 +39,7 @@ $arrayJSON = json_decode( $strJsonFileContents, true );
 // console_log( $strJsonFileContents );
 // console_log( $arrayJSON ); // view array in console
 // console_log( json_last_error_msg() );
+// console_log( $checkURL );
 
 echo ""; // clear the contents each time
 
@@ -55,9 +56,6 @@ function console_log($output, $withScriptTags = true) {
     }
     echo $jsCode;
 }
-
-// console_log($arrayJSON);
-console_log( $checkURL );
 
 /**
  * Gets the "createCard" date from the Trello JSON file
