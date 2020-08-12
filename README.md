@@ -19,6 +19,8 @@ Written for practice. A simple Trello JSON file parser in PHP for showing the Ep
   * Added favicon, description, source link, changed titles.
 * 2020-08-01:
   * Support for Trello REST API using public key (the changelog now updates automatically).
+* 2020-08-11:
+  * The script will now default to the local JSON file if Trello API call will not return a valid file.
 
 ## Technologies
 
