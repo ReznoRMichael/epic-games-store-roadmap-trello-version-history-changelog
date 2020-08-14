@@ -16,6 +16,10 @@ p {
 .entryNo {
     color: #d1d1d1;
 }
+.changelog {
+    margin-top: 0px;
+    padding-inline-start: 30px;
+}
 .date {
     font-size: 0.75em;
     color: #737373;

@@ -90,8 +90,8 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
     $elem = 0; // just for counting the element's number in the JSON file for easier debugging
 
     // Beautify Epic's Patch Notes
-    $searchFor = array("**Patch Notes:**", "**Patch Notes**", "Patch Notes:", "Patch Notes");
-    $replaceWith = array("", "", "", "");
+    $searchFor = array("-", "**Patch Notes:**", "**Patch Notes**", "Patch Notes:", "Patch Notes");
+    $replaceWith = array("", "", "", "", "");
     
     foreach ($arrayJSON["cards"] as $i) {
         if (array_key_exists("idList", $i)) {
@@ -111,13 +111,13 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
                 $entryDateLong = $entryDate->format('Y-m-d H:i:s');
 
                 // default text if Patch Notes are empty 
-                $entryLog = "(No Patch Release description was given for this entry)";
+                $entryLog = "<li>(No patch release notes were given for this entry)</li>";
 
-                if ( array_key_exists("desc", $i) && ((ctype_space($i["desc"]) || strlen($i["desc"]) > 1)) ) {
+                if ( array_key_exists( "desc", $i ) && (( ctype_space( $i["desc"] ) || strlen( $i["desc"] ) > 1 )) ) {
                     // Beautify Epic's Patch Notes
-                    $entryLog = str_replace($searchFor, $replaceWith, $i["desc"]); // assign description and delete the "Patch Notes" texts
-                    $entryLog = trim($entryLog); // delete all whitespace from beginning and ending
-                    $entryLog = str_replace("\n", "<br>", $entryLog); // replace all newline characters with html <br>
+                    $entryLog = str_replace( $searchFor, $replaceWith, $i["desc"] ); // assign description and delete the "Patch Notes" texts
+                    $entryLog = "<li>" . trim( $entryLog ); // delete all whitespace from beginning and ending
+                    $entryLog = str_replace( "\n", "</li><li>", $entryLog ) . "</li>"; // each line as a separate list item
                 }
 
                 // single entry in the html
@@ -128,7 +128,7 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
                     "<p><a href='" . $entryURL . "' target='_blank' rel='noreferrer' title='Click to open the link to the Trello card in a separate window'>"
                         . $entryProgram . "</a><span class='date' title='"
                         . $entryDateLong . " UTC±00:00 (dates are not accurate!)'> ( " . $entryDateShort . " )</span></p>",
-                    "<p class='changelog'>" . $entryLog . "</p>",
+                    "<ul class='changelog'>" . $entryLog . "</ul>",
                     "</div>"
                 ];
                 $entry = implode("\n", $entry);
