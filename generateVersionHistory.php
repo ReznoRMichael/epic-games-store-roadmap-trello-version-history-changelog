@@ -10,9 +10,12 @@ $checkURL = "Trello API"; // which method is currently displayed on screen (API 
 $curl = "https://api.trello.com/1/boards/" . $trelloBoardId . "/?key=" . $publicKey . $URIparameters; // REST API call to Trello servers
 
 try {
-    $ctx = stream_context_create( array(
-        'http' => array(
-            'timeout' => 1
+    $ctx = stream_context_create(
+        array(
+            'http' => array(
+                'method' => "GET",
+                'protocol_version' => 1.1,
+                'timeout' => 1
             )
         )
     );
