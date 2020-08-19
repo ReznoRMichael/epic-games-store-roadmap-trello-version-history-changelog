@@ -23,6 +23,7 @@ p {
 .date {
     font-size: 0.75em;
     color: #737373;
+    margin-left: 1em;
 }
 a,
 a:active,

@@ -130,7 +130,7 @@ function generateCardVersionHistory( $arrayJSON, $releaseHistoryId, $checkURL )
                     // "<div class='entryNo'>" . $elem . " cardId=" . $i["id"] . "</div>",
                     "<p><a href='" . $entryURL . "' target='_blank' rel='noreferrer' title='Click to open the link to the Trello card in a separate window'>"
                         . $entryProgram . "</a><span class='date' title='"
-                        . $entryDateLong . " UTC±00:00 (dates are not accurate!)'> ( " . $entryDateShort . " )</span></p>",
+                        . $entryDateLong . " UTC±00:00\n(dates are totally not accurate!)'>" . $entryDateShort . "</span></p>",
                     "<ul class='changelog'>" . $entryLog . "</ul>",
                     "</div>"
                 ];
