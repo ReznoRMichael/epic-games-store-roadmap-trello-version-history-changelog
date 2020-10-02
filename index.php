@@ -11,8 +11,8 @@
 	
 	<meta property="og:title" content="Epic Games Store Version History on a single page">
 	<meta property="og:description" content="Epic Games Store Launcher/Web Roadmap Trello JSON PHP parser by ReznoR.">
-	<meta property="og:image" content="http://reznortech.epizy.com/favicon.png">
-	<meta property="og:url" content="http://reznortech.epizy.com/epic-games-store-version-history">
+	<meta property="og:image" content="http://reznortech.rf.gd/favicon.png">
+	<meta property="og:url" content="http://reznortech.rf.gd/epic-games-store-version-history">
 	<meta name="twitter:card" content="summary_large_image">
 	<meta property="og:site_name" content="rezno[R].tech">
 	<meta name="twitter:image:alt" content="Epic Games Store Launcher/Web Roadmap Trello JSON PHP parser by ReznoR.">
