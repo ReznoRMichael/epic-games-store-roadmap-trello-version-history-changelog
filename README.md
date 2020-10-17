@@ -23,6 +23,8 @@ Written for practice. A simple Trello JSON file parser in PHP for showing the Ep
   * The script will now default to the local JSON file if Trello API call will not return a valid file.
 * 2020-08-14:
   * List formatting improvement (fast).
+* 2020-10-17:
+  * Dark Mode.
 
 ## Technologies
 
