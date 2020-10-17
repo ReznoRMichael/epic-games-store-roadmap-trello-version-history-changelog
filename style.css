@@ -1,20 +1,28 @@
 body {
     font-family: Consolas, monotype;
     font-size: 15px;
+    text-align: center;
+    color: #DDD;
+    background-color: #333;
 }
 p {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+#generate {
+    max-width: 550px;
+    margin: 0 auto;
+    text-align: justify;
+}
 .horizontal-line {
     padding-bottom: 1px;
-    background: linear-gradient(90deg, #e9e9e9 0%, #FFFFFF 75%);
+    background: linear-gradient(90deg, #666 0%, #333 100%);
 }
 .smalltext {
     font-size: 0.75em;
 }
 .entryNo {
-    color: #d1d1d1;
+    color: #555;
 }
 .changelog {
     margin-top: 0px;
@@ -22,13 +30,13 @@ p {
 }
 .date {
     font-size: 0.75em;
-    color: #737373;
+    color: #999;
     margin-left: 1em;
 }
 a,
 a:active,
 a:visited {
-    color: black;
+    color: #EEE;
     font-weight: bold;
     text-decoration: none;
 }

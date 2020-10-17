@@ -6,7 +6,7 @@ $trelloBoardId = "5c8aab433718ca7a53ceb3b8"; // the id of the trello board that 
 $releaseHistoryId = "5c8aded82d38c74039cf8009"; // the id of the list "Releases / Patch Notes" on Epic's Trello Roadmap
 $URIparameters = "&cards=all&actions=all"; // parameters for the REST API call
 $strJsonFileContents = ""; // initially empty
-$checkURL = "Trello API"; // which method is currently displayed on screen (API or local file)
+$checkURL = "<b>Trello API</b> (Auto-update <b>ON</b>)"; // which method is currently displayed on screen (API or local file)
 $curl = "https://api.trello.com/1/boards/" . $trelloBoardId . "/?key=" . $publicKey . $URIparameters; // REST API call to Trello servers
 
 try {
@@ -27,7 +27,7 @@ try {
     if( $checkAPICall === false ) {
         // if the API call will fail pull data from a local file instead
         $strJsonFileContents = file_get_contents( "GXLc34hk.json" );
-        $checkURL = "Local JSON";
+        $checkURL = "<b>Local JSON</b> (Auto-update <b>OFF</b>)";
     } else {
         // Put the contents of the JSON API response in a string
         $strJsonFileContents = $checkAPICall;
