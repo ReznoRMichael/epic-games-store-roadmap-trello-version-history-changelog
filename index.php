@@ -25,7 +25,14 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-136831794-2"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
+        function gtag(){dataLayer.push(arguments);}
+        
+        // Default no consent to share cookie data
+		gtag('consent', 'default', {
+			'ad_storage': 'denied',
+			'analytics_storage': 'denied'
+        });
+        
 		gtag('js', new Date());
 
 		gtag('config', 'UA-136831794-2');
