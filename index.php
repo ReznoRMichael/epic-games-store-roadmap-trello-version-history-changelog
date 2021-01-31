@@ -2,6 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-136831794-2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        // Default no consent to share cookie data
+		/* gtag('consent', 'default', {
+			'ad_storage': 'denied',
+			'analytics_storage': 'denied'
+        }); */
+        
+		gtag('js', new Date());
+
+		gtag('config', 'UA-136831794-2');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
@@ -20,24 +36,6 @@
 	<meta name="author" content="ReznoR Michael">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="icon" href="../favicon.png">
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-136831794-2"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        
-        // Default no consent to share cookie data
-		gtag('consent', 'default', {
-			'ad_storage': 'denied',
-			'analytics_storage': 'denied'
-        });
-        
-		gtag('js', new Date());
-
-		gtag('config', 'UA-136831794-2');
-    </script>
-    
 </head>
 <body>
     
