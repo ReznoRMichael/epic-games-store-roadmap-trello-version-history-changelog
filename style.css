@@ -5,34 +5,43 @@ body {
     color: #DDD;
     background-color: #333;
 }
+
 p {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
 #generate {
     max-width: 550px;
     margin: 0 auto;
     text-align: justify;
 }
+
 .horizontal-line {
     padding-bottom: 1px;
     background: linear-gradient(90deg, #666 0%, #333 100%);
 }
+
 .smalltext {
     font-size: 0.75em;
+    text-align: center;
 }
+
 .entryNo {
     color: #555;
 }
+
 .changelog {
     margin-top: 0px;
     padding-inline-start: 30px;
 }
+
 .date {
     font-size: 0.75em;
     color: #999;
     margin-left: 1em;
 }
+
 a,
 a:active,
 a:visited {
@@ -40,6 +49,7 @@ a:visited {
     font-weight: bold;
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }

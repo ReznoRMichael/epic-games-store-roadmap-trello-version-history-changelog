@@ -20,24 +20,24 @@ try {
         )
     );
 
-    $checkAPICall = file_get_contents( $curl, 0, $ctx );
+    $checkAPICall = file_get_contents($curl, 0, $ctx);
 
     // $checkAPICall = false; // debugging
 
-    if( $checkAPICall === false ) {
+    if ($checkAPICall === false) {
         // if the API call will fail pull data from a local file instead
-        $strJsonFileContents = file_get_contents( "GXLc34hk.json" );
+        $strJsonFileContents = file_get_contents("GXLc34hk.json");
         $checkURL = "<b>Local JSON</b> (Auto-update <b>OFF</b>)";
     } else {
         // Put the contents of the JSON API response in a string
         $strJsonFileContents = $checkAPICall;
     }
-} catch( Exception $e ) {
-    console_log( "You have broken internet" );
+} catch (Exception $e) {
+    console_log("You have broken internet");
 }
 
 // Convert the string to associative array for use with PHP
-$arrayJSON = json_decode( $strJsonFileContents, true );
+$arrayJSON = json_decode($strJsonFileContents, true);
 // var_dump($arrayJSON); // view array in console
 // console_log( $strJsonFileContents );
 // console_log( $arrayJSON ); // view array in console
@@ -52,9 +52,10 @@ echo ""; // clear the contents each time
  * @param bool $withScriptTags
  * @return string
  */
-function console_log( $output, $withScriptTags = true ) {
-    $jsCode = "console.log(" . json_encode( $output, JSON_HEX_TAG ) . ");";
-    if( $withScriptTags ) {
+function console_log($output, $withScriptTags = true)
+{
+    $jsCode = "console.log(" . json_encode($output, JSON_HEX_TAG) . ");";
+    if ($withScriptTags) {
         $jsCode = "<script>" . $jsCode . "</script>";
     }
     echo $jsCode;
@@ -66,12 +67,12 @@ function console_log( $output, $withScriptTags = true ) {
  * @param mixed $arrayJSON
  * @return string
  */
-function getCreateCardDate( $cardID, $arrayJSON )
+function getCreateCardDate($cardID, $arrayJSON)
 {
-    foreach( $arrayJSON["actions"] as $i ) {
-        if( array_key_exists( "card", $i["data"] ) ) {
-            if( $i["data"]["card"]["id"] === $cardID ) {
-                if( array_key_exists( "date", $i ) ) return $i["date"];
+    foreach ($arrayJSON["actions"] as $i) {
+        if (array_key_exists("card", $i["data"])) {
+            if ($i["data"]["card"]["id"] === $cardID) {
+                if (array_key_exists("date", $i)) return $i["date"];
             }
         }
     }
@@ -84,7 +85,7 @@ function getCreateCardDate( $cardID, $arrayJSON )
  * @param string $releaseHistoryId
  * @return void
  */
-function generateCardVersionHistory( $arrayJSON, $releaseHistoryId, $checkURL )
+function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
 {
     $searchResult = "";
     $allEntries = "";
@@ -93,34 +94,34 @@ function generateCardVersionHistory( $arrayJSON, $releaseHistoryId, $checkURL )
     $elem = 0; // just for counting the element's number in the JSON file for easier debugging
 
     // Beautify Epic's Patch Notes
-    $searchFor = array( "-", "**Patch Notes:**", "**Patch Notes**", "Patch Notes:", "Patch Notes" );
-    $replaceWith = array( "", "", "", "", "" );
-    
-    foreach( $arrayJSON["cards"] as $i ) {
-        if( array_key_exists( "idList", $i ) ) {
+    $searchFor = array("-", "**Patch Notes:**", "**Patch Notes**", "Patch Notes:", "Patch Notes");
+    $replaceWith = array("", "", "", "", "");
+
+    foreach ($arrayJSON["cards"] as $i) {
+        if (array_key_exists("idList", $i)) {
             $searchResult = $i["idList"];
 
-            if( $searchResult == $releaseHistoryId ) {
+            if ($searchResult == $releaseHistoryId) {
                 $entryProgram = $i["name"]; // Epic Web or Client, plus version
                 $entryURL = $i["url"]; // URL for each card's link
                 $cardID = $i["id"]; // save card's ID for getCreateCardDate()
-                $cardDate = getCreateCardDate( $cardID, $arrayJSON );
-                    // In case missing/invalid date on the action, switch to the "Last Activity" date on the card instead
-                    if( $cardDate === "2019-01-01T00:00:00.001Z" ) {
-                        if( $i["dateLastActivity"] ) $cardDate = $i["dateLastActivity"];
-                    }
-                $entryDate = DateTime::createFromFormat( 'Y-m-d\TH:i:s.u\Z', $cardDate );
-                $entryDateShort = $entryDate->format( 'Y-m-d' );
-                $entryDateLong = $entryDate->format( 'Y-m-d H:i:s' );
+                $cardDate = getCreateCardDate($cardID, $arrayJSON);
+                // In case missing/invalid date on the action, switch to the "Last Activity" date on the card instead
+                if ($cardDate === "2019-01-01T00:00:00.001Z") {
+                    if ($i["dateLastActivity"]) $cardDate = $i["dateLastActivity"];
+                }
+                $entryDate = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $cardDate);
+                $entryDateShort = $entryDate->format('Y-m-d');
+                $entryDateLong = $entryDate->format('Y-m-d H:i:s');
 
                 // default text if Patch Notes are empty 
                 $entryLog = "<li>(No patch release notes were given for this entry)</li>";
 
-                if( array_key_exists( "desc", $i ) && (( ctype_space( $i["desc"] ) || strlen( $i["desc"] ) > 1 )) ) {
+                if (array_key_exists("desc", $i) && ((ctype_space($i["desc"]) || strlen($i["desc"]) > 1))) {
                     // Beautify Epic's Patch Notes
-                    $entryLog = str_replace( $searchFor, $replaceWith, $i["desc"] ); // assign description and delete the "Patch Notes" texts
-                    $entryLog = "<li>" . trim( $entryLog ); // delete all whitespace from beginning and ending
-                    $entryLog = str_replace( "\n", "</li><li>", $entryLog ) . "</li>"; // each line as a separate list item
+                    $entryLog = str_replace($searchFor, $replaceWith, $i["desc"]); // assign description and delete the "Patch Notes" texts
+                    $entryLog = "<li>" . trim($entryLog); // delete all whitespace from beginning and ending
+                    $entryLog = str_replace("\n", "</li><li>", $entryLog) . "</li>"; // each line as a separate list item
                 }
 
                 // single entry in the html
@@ -130,11 +131,11 @@ function generateCardVersionHistory( $arrayJSON, $releaseHistoryId, $checkURL )
                     // "<div class='entryNo'>" . $elem . " cardId=" . $i["id"] . "</div>",
                     "<p><a href='" . $entryURL . "' target='_blank' rel='noreferrer' title='Click to open the link to the Trello card in a separate window'>"
                         . $entryProgram . "</a><span class='date' title='"
-                        . $entryDateLong . " UTC±00:00\n(dates are totally not accurate!)'>" . $entryDateShort . "</span></p>",
+                        . $entryDateLong . " UTC±00:00\nDate of card action (if exists). Date of last activity if doesn't exist." . $entryDateShort . "</span></p>",
                     "<ul class='changelog'>" . $entryLog . "</ul>",
                     "</div>"
                 ];
-                $entry = implode( "\n", $entry );
+                $entry = implode("\n", $entry);
 
                 // append single entry to the final result
                 $allEntries .= $entry;
@@ -145,16 +146,16 @@ function generateCardVersionHistory( $arrayJSON, $releaseHistoryId, $checkURL )
 
     $entry = [
         "<div>",
-        "<p class='smalltext'>Data source: " . $checkURL . "</p>",
+        "<p class='smalltext'>Current data source: " . $checkURL . "</p>",
         "</div>"
     ];
-    $entry = implode( "\n", $entry );
+    $entry = implode("\n", $entry);
 
     // view final result
     return $entry .= $allEntries;
 }
 
-echo generateCardVersionHistory( $arrayJSON, $releaseHistoryId, $checkURL );
+echo generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL);
 
 // $execution_time = microtime(true) - $execution_time;
 // printf('It took %.5f sec', $execution_time);
