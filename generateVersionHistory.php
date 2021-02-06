@@ -106,9 +106,14 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
                 $entryURL = $i["url"]; // URL for each card's link
                 $cardID = $i["id"]; // save card's ID for getCreateCardDate()
                 $cardDate = getCreateCardDate($cardID, $arrayJSON);
+                $entryDateSource = "Card Action Date";
                 // In case missing/invalid date on the action, switch to the "Last Activity" date on the card instead
                 if ($cardDate === "2019-01-01T00:00:00.001Z") {
-                    if ($i["dateLastActivity"]) $cardDate = $i["dateLastActivity"];
+                    $entryDateSource = "Invalid Date";
+                    if ($i["dateLastActivity"]) {
+                        $cardDate = $i["dateLastActivity"];
+                        $entryDateSource = "Last Activity Date";
+                    }
                 }
                 $entryDate = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $cardDate);
                 $entryDateShort = $entryDate->format('Y-m-d');
@@ -129,9 +134,12 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
                     "<div>",
                     "<div class='horizontal-line'></div>",
                     // "<div class='entryNo'>" . $elem . " cardId=" . $i["id"] . "</div>",
-                    "<p><a href='" . $entryURL . "' target='_blank' rel='noreferrer' title='Click to open the link to the Trello card in a separate window'>"
-                        . $entryProgram . "</a><span class='date' title='"
-                        . $entryDateLong . " UTC±00:00\nDate of card action (if exists). Date of last activity if doesn't exist." . $entryDateShort . "</span></p>",
+                    "<p>",
+                    "<a href='" . $entryURL . "' target='_blank' rel='noreferrer' title='Click to open the link to the Trello card in a separate window'>"
+                        . $entryProgram . "</a>",
+                        "<span class='date' title='" . $entryDateLong . " UTC±00:00 (" . $entryDateSource . ")\nDate of card action (if exists). Date of last activity if does not exist.'>"
+                        . $entryDateShort . "</span>",
+                    "</p>",
                     "<ul class='changelog'>" . $entryLog . "</ul>",
                     "</div>"
                 ];
