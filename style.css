@@ -1,6 +1,9 @@
+html {
+    font-size: 15px;
+}
+
 body {
     font-family: Consolas, monotype;
-    font-size: 15px;
     text-align: center;
     color: #DDD;
     background-color: #333;
@@ -9,6 +12,17 @@ body {
 p {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+ul, li {
+    list-style-type: none;
+}
+
+li::before {
+    content: "✅";
+    position: absolute;
+    margin-left: -1.6rem;
+    margin-top: -0.12rem;
 }
 
 #generate {
@@ -33,7 +47,7 @@ p {
 
 .changelog {
     margin-top: 0px;
-    padding-inline-start: 30px;
+    padding-inline-start: 2.6rem;
 }
 
 .date {
