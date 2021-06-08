@@ -94,8 +94,8 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
     $elem = 0; // just for counting the element's number in the JSON file for easier debugging
 
     // Beautify Epic's Patch Notes
-    $searchFor = array("-", "**Patch Notes:**", "**Patch Notes**", "Patch Notes:", "Patch Notes");
-    $replaceWith = array("", "", "", "", "");
+    $searchFor = array("-", "**Patch Notes:**", "**Patch Notes**", "Patch Notes:", "Patch Notes", "* ");
+    $replaceWith = array("", "", "", "", "", "");
 
     foreach ($arrayJSON["cards"] as $i) {
         if (array_key_exists("idList", $i)) {
@@ -137,7 +137,7 @@ function generateCardVersionHistory($arrayJSON, $releaseHistoryId, $checkURL)
                     "<p>",
                     "<a href='" . $entryURL . "' target='_blank' rel='noreferrer' title='Click to open the link to the Trello card in a separate window'>"
                         . $entryProgram . "</a>",
-                        "<span class='date' title='" . $entryDateLong . " UTC±00:00 (" . $entryDateSource . ")\nDate of card action (if exists). Date of last activity if does not exist.'>"
+                    "<span class='date' title='" . $entryDateLong . " UTC±00:00 (" . $entryDateSource . ")\nDate of card action (if exists). Date of last activity if does not exist.'>"
                         . $entryDateShort . "</span>",
                     "</p>",
                     "<ul class='changelog'>" . $entryLog . "</ul>",
